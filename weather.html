@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather App</title>
+
+    <link rel="stylesheet" href="weather.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="htt...ap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="bg" class="bg-anim" aria-hidden="true"></div>
+
+    <div class="container" role="main">
+
+        <!-- Header -->
+
+        <div class="header">
+
+            <div class="header-top">
+                <h1 class="title">Weather</h1>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <span class="theme-icon theme-icon-dark" aria-hidden="true">⚫</span>
+                    <span class="theme-icon theme-icon-light" aria-hidden="true">⚪</span>
+                </button>
+            </div>
+
+            <p class="subtitle">Current and 5-day forecast</p>
+
+        </div>
+
+        <!-- Search Section -->
+
+        <div class="search-card">
+
+            <form class="search-form" id="searchForm">
+
+                <div class="search-input-container">
+
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+
+                        <circle cx="11" cy="11" r="8"></circle>
+
+                        <path d="m21 21-4.35-4.35"></path>
+
+                    </svg>
+
+                    <input type="text" id="searchInput" placeholder="Search for a city..." class="search-input">
+
+                </div>
+
+                <button type="submit" class="search-btn">Search</button>
+
+            </form>
+
+        </div>
+
+        <!-- Loading State -->
+
+        <div class="loading" id="loading" style="display: none;">
+
+            <svg class="loading-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+
+                <path d="M21 12a9 9 0 11-6.219-8.56"></path>
+
+            </svg>
+
+            <span>Loading weather data...</span>
+
+            <div class="shimmer-group" aria-hidden="true">
+                <div class="shimmer shimmer-line"></div>
+                <div class="shimmer shimmer-line"></div>
+                <div class="shimmer shimmer-card"></div>
+            </div>
+
+        </div>
+
+        <!-- Current Weather -->
+
+        <div class="weather-card" id="currentWeather" style="display: none;">
+
+            <div class="weather-header">
+
+                <div class="location">
+
+                    <svg class="location-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+
+                        <circle cx="12" cy="10" r="3"></circle>
+
+                    </svg>
+
+                    <span id="currentLocation">New York, NY</span>
+
+                </div>
+
+                <h2 class="section-title">Current Weather</h2>
+
+            </div>
+
+            <div class="weather-content">
+
+                <div class="main-weather">
+
+                    <div class="weather-display">
+
+                        <div class="weather-icon" id="currentIcon">
+
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+
+                                <circle cx="12" cy="12" r="5"></circle>
+
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+
+                            </svg>
+
+                        </div>
+
+                        <div class="temperature-info">
+
+                            <div class="temperature" id="currentTemp">72°</div>
+
+                            <div class="condition" id="currentCondition">Sunny</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="feels-like">
+
+                        Feels like <span id="feelsLike">75°</span>
+
+                    </div>
+
+                    <div class="weather-badge" id="weatherBadge">Clear sky</div>
+
+                </div>
+
+                <div class="weather-details">
+
+                    <div class="detail-item">
+
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path>
+
+                        </svg>
+
+                        <div class="detail-info">
+
+                            <div class="detail-label">Humidity</div>
+
+                            <div class="detail-value" id="humidity">45%</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="detail-item">
+
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M17.5 19H9a7 7 0 114.9-12.8"></path>
+
+                            <path
+                                d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+                            </path>
+
+                        </svg>
+
+                        <div class="detail-info">
+
+                            <div class="detail-label">Wind</div>
+
+                            <div class="detail-value" id="windSpeed">8 mph</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="detail-item">
+
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+
+                            <circle cx="12" cy="12" r="3"></circle>
+
+                        </svg>
+
+                        <div class="detail-info">
+
+                            <div class="detail-label">Visibility</div>
+
+                            <div class="detail-value" id="visibility">10 mi</div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="detail-item">
+
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+
+                            <path
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24">
+                            </path>
+
+                        </svg>
+
+                        <div class="detail-info">
+
+                            <div class="detail-label">Pressure</div>
+
+                            <div class="detail-value" id="pressure">1013 mb</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 5-Day Forecast -->
+
+        <div class="forecast-card" id="forecastCard" style="display: none;">
+
+            <h2 class="section-title">5-Day Forecast</h2>
+
+            <div class="forecast-list" id="forecastList">
+
+                <!-- Forecast items will be populated by JavaScript -->
+
+            </div>
+
+        </div>
+
+        <!-- Hourly Panel -->
+        <div class="hourly-card" id="hourlyPanel" style="display: none;">
+            <div class="hourly-header">
+                <h2 class="section-title" id="hourlyTitle">Hourly</h2>
+            </div>
+            <div class="hourly-list" id="hourlyList"></div>
+        </div>
+
+        <!-- Error Message -->
+
+        <div class="error-message" id="errorMessage" style="display: none;">
+
+            <p>Failed to fetch weather data. Please try again.</p>
+
+        </div>
+
+    </div>
+
+    <script src="weather.js"></script>
+
+</body>
+
+</html>
